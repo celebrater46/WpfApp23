@@ -12,6 +12,7 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
+using NOTIFY = Notifications.Wpf;
 
 namespace WpfApp23
 {
@@ -20,9 +21,23 @@ namespace WpfApp23
     /// </summary>
     public partial class MainWindow : Window
     {
+        private readonly NOTIFY.NotificationManager notificationManager = new NOTIFY.NotificationManager();
         public MainWindow()
         {
             InitializeComponent();
+        }
+
+        private void Button_Click(object sender, RoutedEventArgs e)
+        {
+            var content = new NOTIFY.NotificationContent
+            {
+                Type = NOTIFY.NotificationType.Information,
+                Title = "Hoge Title",
+                Message = "Hello World of Hoge.",
+            };
+
+            // notificationManager.Show();
+            notificationManager.Show(content, expirationTime: TimeSpan.FromSeconds(2));
         }
     }
 }
